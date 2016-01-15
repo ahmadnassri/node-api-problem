@@ -1,0 +1,4 @@
+*.log
+lib
+coverage
+node_modules
