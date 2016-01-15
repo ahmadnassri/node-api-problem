@@ -81,7 +81,7 @@ export function Middleware (space = null) {
       res.set('Content-Type', 'application/problem+json')
       res.send(JSON.stringify(err, null, space))
     } else {
-      next()
+      return next()
     }
   }
 }
