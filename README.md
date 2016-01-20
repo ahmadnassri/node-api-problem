@@ -110,9 +110,11 @@ app.get('/', (req, res) => {
 app.use(Problem.Middleware)
 ```
 
-## License
-
-[ISC License](LICENSE) &copy; [Ahmad Nassri](https://www.ahmadnassri.com/)
+----
+> :copyright: [ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
+> License: [ISC](LICENSE) &nbsp;&middot;&nbsp;
+> Github: [@ahmadnassri](https://github.com/ahmadnassri) &nbsp;&middot;&nbsp;
+> Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
 [license-url]: https://github.com/ahmadnassri/api-problem/blob/master/LICENSE
 
