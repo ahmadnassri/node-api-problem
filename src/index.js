@@ -3,6 +3,7 @@ import { STATUS_CODES } from 'http'
 export const BASE_URI = ''
 export const DEFAULT_TYPE = 'about:blank'
 export const IANA_STATUS_CODES = 'http://www.iana.org/assignments/http-status-codes#'
+export const CONTENT_TYPE = 'application/problem+json'
 
 export const ERR_STATUS = '"status" must be a valid HTTP Error Status Code ([RFC7231], Section 6)'
 export const ERR_TITLE = 'missing "title". a short, human-readable summary of the problem type'
@@ -38,7 +39,7 @@ export default class Problem {
 
     let statusNumber = Number(status)
 
-    if (statusNumber >= 600 || statusNumber < 400) {
+    if ((statusNumber >= 600 || statusNumber < 400) && statusNumber !== 207) {
       throw new Error(ERR_STATUS)
     }
 
@@ -78,7 +79,7 @@ export default class Problem {
 export function Middleware (space = null) {
   return (err, req, res, next) => {
     if (err instanceof Problem) {
-      res.set('Content-Type', 'application/problem+json')
+      res.set('Content-Type', CONTENT_TYPE)
       res.send(JSON.stringify(err, null, space))
     } else {
       return next()
