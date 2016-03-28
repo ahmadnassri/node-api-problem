@@ -1,10 +1,13 @@
 import Problem, * as P from '../src'
-import test from 'tape'
+import { test } from 'tap'
 import { STATUS_CODES } from 'http'
 
-test('API Problem', assert => {
+test('API Problem', (assert) => {
+  assert.plan(18)
+
   assert.ok(new Problem(404) instanceof Problem, 'Problem prototype')
 
+  assert.doesNotThrow(() => new Problem(207), /RFC7231/, 'Allow 207 as a valid status code')
   assert.throws(() => new Problem(), /RFC7231/, P.ERR_STATUS)
   assert.throws(() => new Problem(200), /RFC7231/, P.ERR_STATUS)
   assert.throws(() => new Problem(444), /human-readable/, P.ERR_TITLE)
@@ -39,16 +42,36 @@ test('API Problem', assert => {
   assert.equal(new Problem(404, 'foo', 'baz', { instance: 'baz' }).instance, 'foo://bar/baz', '"instance" inherits "BASE_URI"')
 
   assert.equal(new Problem(404).toString(), `[404] Not Found (${P.IANA_STATUS_CODES}404)`, 'toString() yeilds is "[status] title (type)"')
-  assert.end()
 })
 
-test('Express Middleware', assert => {
+test('HTTP Response', (assert) => {
+  assert.plan(3)
+
+  let problem = new Problem(404)
+
+  let response = {
+    writeHead: (status, headers) => {
+      assert.equal(status, '404', 'set correct status code')
+      assert.equal(headers['Content-Type'], P.CONTENT_TYPE, 'set correct Content-Type')
+    },
+
+    end: (body) => {
+      assert.equal(body, JSON.stringify(problem), 'serialized JSON response')
+    }
+  }
+
+  problem.send(response)
+})
+
+test('Express Middleware', (assert) => {
+  assert.plan(4)
+
   let problem = new Problem(404)
 
   let req = {}
   let res = {
     set (name, value) {
-      assert.equal(value, 'application/problem+json', 'set correct Content-Type')
+      assert.equal(value, P.CONTENT_TYPE, 'set correct Content-Type')
     },
 
     send (body) {
@@ -68,9 +91,5 @@ test('Express Middleware', assert => {
 
   P.Middleware(2)(problem, req, res)
 
-  P.Middleware(2)(null, req, res, () => {
-    assert.ok(true, 'passthrough when no match')
-  })
-
-  assert.end()
+  P.Middleware(2)(null, req, res, () => assert.ok(true, 'passthrough when no match'))
 })

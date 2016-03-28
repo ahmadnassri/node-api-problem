@@ -1,4 +1,7 @@
 engines:
+  fixme:
+    enabled: true
+
   duplication:
     enabled: true
     config:
@@ -8,12 +11,7 @@ engines:
   eslint:
     enabled: true
 
-  fixme:
-    enabled: true
-
 ratings:
   paths:
-  - "src/*"
-
-exclude_paths:
-- test/**/*
+    - src/**
+    - test/**
