@@ -74,6 +74,11 @@ export default class Problem {
   toString () {
     return `[${this.status}] ${this.title} (${this.type})`
   }
+
+  send (response, space) {
+    response.writeHead(this.status, { 'Content-Type': CONTENT_TYPE })
+    response.end(JSON.stringify(this, null, space))
+  }
 }
 
 export function Middleware (space = null) {
