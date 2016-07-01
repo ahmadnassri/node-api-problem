@@ -64,7 +64,7 @@
     "nyc": "^6.1.1",
     "semantic-release": "^4.3.5",
     "standard": "^7.1.2",
-    "tap": "^5.7.0",
+    "tap": "^6.1.0",
     "tap-mocha-reporter": "0.0.24"
   }
 }
