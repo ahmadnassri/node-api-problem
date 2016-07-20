@@ -1,16 +1,15 @@
 import { STATUS_CODES } from 'http'
 
-export const BASE_URI = ''
-export const DEFAULT_TYPE = 'about:blank'
-export const IANA_STATUS_CODES = 'http://www.iana.org/assignments/http-status-codes#'
-export const CONTENT_TYPE = 'application/problem+json'
-
-export const ERR_STATUS = '"status" must be a valid HTTP Error Status Code ([RFC7231], Section 6)'
-export const ERR_TITLE = 'missing "title". a short, human-readable summary of the problem type'
+const BASE_URI = ''
+const CONTENT_TYPE = 'application/problem+json'
+const DEFAULT_TYPE = 'about:blank'
+const ERR_STATUS = '"status" must be a valid HTTP Error Status Code ([RFC7231], Section 6)'
+const ERR_TITLE = 'missing "title". a short, human-readable summary of the problem type'
+const IANA_STATUS_CODES = 'http://www.iana.org/assignments/http-status-codes#'
 
 export default class Problem {
   constructor (status, ...args) {
-    let base_uri = Problem.BASE_URI || BASE_URI
+    let base = Problem.BASE_URI || BASE_URI
     let members
     let title
     let type
@@ -25,8 +24,7 @@ export default class Problem {
     }
 
     if (args.length) {
-      type = args[1]
-      title = args[0]
+      [title, type] = args
     }
 
     if (!type) {
@@ -50,7 +48,7 @@ export default class Problem {
         type = IANA_STATUS_CODES + status
 
         // reset base_uri
-        base_uri = ''
+        base = ''
       }
     }
 
@@ -58,12 +56,12 @@ export default class Problem {
       throw new Error(ERR_TITLE)
     }
 
-    this.type = base_uri + String(type)
+    this.type = base + String(type)
     this.title = String(title)
     this.status = String(status)
 
     if (members && members.instance) {
-      members.instance = base_uri + members.instance
+      members.instance = base + members.instance
     }
 
     if (members) {
@@ -78,16 +76,5 @@ export default class Problem {
   send (response, space) {
     response.writeHead(this.status, { 'Content-Type': CONTENT_TYPE })
     response.end(JSON.stringify(this, null, space))
-  }
-}
-
-export function Middleware (space = null) {
-  return (err, req, res, next) => {
-    if (err instanceof Problem) {
-      res.set('Content-Type', CONTENT_TYPE)
-      res.send(JSON.stringify(err, null, space))
-    } else {
-      return next()
-    }
   }
 }
