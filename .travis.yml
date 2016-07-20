@@ -11,13 +11,6 @@ cache:
   directories:
     - node_modules
 
-after_success:
-  - curl -Lo travis_after_all.py https://git.io/travis_after_all
-  - python travis_after_all.py
-  - export $(cat .to_export_back) > /dev/null
-  - npm run coverage
-  - npm run codeclimate
-
 before_deploy:
   - npm prune
   - declare -A PRESETS=([es2015]= ["node4"]=node4 ["node5"]=node5 ["node6"]=node6);
@@ -26,7 +19,13 @@ before_deploy:
 deploy:
   skip_cleanup: true
   provider: script
-  script: npm run semantic-release
+  script:
+    - curl -Lo travis_after_all.py https://git.io/travis_after_all
+    - python travis_after_all.py
+    - export $(cat .to_export_back) > /dev/null
+    - npm run coverage
+    - npm run codeclimate
+    - npm run semantic-release
   on:
     branch: master
 
