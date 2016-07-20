@@ -19,10 +19,12 @@ after_success:
   - npm run codeclimate
 
 before_deploy:
+  - npm prune
   - declare -A PRESETS=([es2015]= ["node4"]=node4 ["node5"]=node5 ["node6"]=node6);
   - for preset in "${!PRESETS[@]}"; do BABEL_ENV=$preset npm run compile -- -d lib/${PRESETS[$preset]}; done
 
 deploy:
+  skip_cleanup: true
   provider: script
   script: npm run semantic-release
   on:
