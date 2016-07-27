@@ -21,8 +21,8 @@ after_success:
   - npm run coverage
   - npm run codeclimate
   - BABEL_ENV=es2015 npm run compile -- -d lib
-  - BABEL_ENV=node4 npm run compile -- -d lib/node5
-  - BABEL_ENV=node5 npm run compile -- -d lib/node4
+  - BABEL_ENV=node4 npm run compile -- -d lib/node4
+  - BABEL_ENV=node5 npm run compile -- -d lib/node5
   - BABEL_ENV=node6 npm run compile -- -d lib/node6
   - npm run semantic-release
 
