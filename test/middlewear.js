@@ -5,17 +5,18 @@ import { test } from 'tap'
 const CONTENT_TYPE = 'application/problem+json'
 
 test('Express Middleware', (assert) => {
-  assert.plan(4)
+  assert.plan(5)
 
   let problem = new Problem(404)
 
   let req = {}
   let res = {
-    set (name, value) {
-      assert.equal(value, CONTENT_TYPE, 'set correct Content-Type')
+    writeHead (status, headers) {
+      assert.equal(status, '404', 'set correct status code')
+      assert.same(headers, { 'Content-Type': CONTENT_TYPE }, 'set correct HTTP headers')
     },
 
-    send (body) {
+    end (body) {
       assert.equal(body, JSON.stringify(problem), 'serialized JSON response')
     }
   }
@@ -23,9 +24,9 @@ test('Express Middleware', (assert) => {
   Middleware()(problem, req, res)
 
   res = {
-    set (name, value) {},
+    writeHead (status, headers) {},
 
-    send (body) {
+    end (body) {
       assert.equal(body, JSON.stringify(problem, null, 2), 'spaced + serialized JSON response')
     }
   }
