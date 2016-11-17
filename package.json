@@ -64,7 +64,7 @@
     "codeclimate-test-reporter": "^0.4.0",
     "cz-conventional-changelog": "^1.1.6",
     "echint": "^1.5.3",
-    "semantic-release": "^4.3.5",
+    "semantic-release": "^6.3.2",
     "standard": "^8.0.0",
     "tap": "^8.0.0",
     "tap-mocha-reporter": "3.0.0"
