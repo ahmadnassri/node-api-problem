@@ -6,40 +6,33 @@
 [![Downloads][npm-downloads]][npm-url]
 [![Code Climate][codeclimate-quality]][codeclimate-url]
 [![Coverage Status][codeclimate-coverage]][codeclimate-url]
+[![Dependency Status][dependencyci-image]][dependencyci-url]
 [![Dependencies][david-image]][david-url]
 
 ## Install
 
-```sh
-npm install --production --save api-problem
+```bash
+npm install --only=production --save api-problem
 ```
 
 ## Usage
 
-I reccomend using an optimized build matching your Node.js environment version, otherwise, the standard `require` would work just fine.
+I recommend using an optimized build matching your Node.js environment version, otherwise, the standard `require` would work just fine with any version of Node `>= v4.0` .
 
 ```js
 /*
+ * Node 7
+ */
+const Problem = require('api-problem/lib/node7')
+
+/*
  * Node 6
- * Built using `babel-preset-es2015-node6`
  */
 const Problem = require('api-problem/lib/node6')
 
 /*
- * Node 5
- * Built using `babel-preset-es2015-node5`
- */
-const Problem = require('api-problem/lib/node5')
-
-/*
- * Node 4
- * Built using `babel-preset-es2015-node4`
- */
-const Problem = require('api-problem/lib/node4')
-
-/*
- * Node >=0.10 <=0.12
- * Built using `babel-preset-es2015`
+ * Node 4 (Default)
+ * Note: additional ES2015 polyfills may be required
  */
 var Problem = require('api-problem')
 ```
@@ -59,17 +52,17 @@ var Problem = require('api-problem')
 import Problem from 'api-problem'
 
 // HTTP defaults
-new Problem(404) 
+new Problem(404)
 //=> { status: '404', title: 'Not Found', type: 'http://www.iana.org/assignments/http-status-codes#404' }
 
 
 // override defaults
-new Problem(404, 'Oops! Page Not Found') 
+new Problem(404, 'Oops! Page Not Found')
 //=> { status: '404', title: 'Oops! Page Not Found', type: 'http://www.iana.org/assignments/http-status-codes#404' }
 
 
 // custom values
-new Problem(403, 'You do not have enough credit', 'https://example.com/probs/out-of-credit') 
+new Problem(403, 'You do not have enough credit', 'https://example.com/probs/out-of-credit')
 //=> { status: '403', title: 'You do not have enough credit', type: 'https://example.com/probs/out-of-credit' }
 
 
@@ -90,7 +83,7 @@ new Problem(403, {
   instance: '/account/12345',
   date: '2016-01-15T06:47:01.175Z',
   account_id: '12345'
-}) 
+})
 //=> { status: '403', title: 'Forbidden', type: 'http://www.iana.org/assignments/http-status-codes#404', detail: 'Account suspended', instance: '/account/12345', account_id: 12345, 'date: 2016-01-15T06:47:01.175Z' }
 
 ```
@@ -100,7 +93,7 @@ new Problem(403, {
 returns a simplified, human-readable string representation
 
 ```js
-let prob = new Problem(403, 'You do not have enough credit', 'https://example.com/probs/out-of-credit') 
+let prob = new Problem(403, 'You do not have enough credit', 'https://example.com/probs/out-of-credit')
 
 prob.toString() //=> [403] You do not have enough credit ('https://example.com/probs/out-of-credit')
 ```
@@ -136,8 +129,8 @@ app.use(Problem.Middleware)
 ```
 
 ----
-> :copyright: [www.ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
-> License: [ISC](LICENSE) &nbsp;&middot;&nbsp;
+> :copyright: [ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
+> License: [ISC][license-url] &nbsp;&middot;&nbsp;
 > Github: [@ahmadnassri](https://github.com/ahmadnassri) &nbsp;&middot;&nbsp;
 > Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
@@ -157,6 +150,9 @@ app.use(Problem.Middleware)
 
 [david-url]: https://david-dm.org/ahmadnassri/api-problem
 [david-image]: https://img.shields.io/david/ahmadnassri/api-problem.svg?style=flat-square
+
+[dependencyci-url]: https://dependencyci.com/github/ahmadnassri/api-problem
+[dependencyci-image]: https://dependencyci.com/github/ahmadnassri/api-problem/badge?style=flat-square
 
 [spec-3]: https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-02#section-3
 [spec-3.1]: https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-02#section-3.1
