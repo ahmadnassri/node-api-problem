@@ -1,4 +1,4 @@
-# api-problem [![version][npm-version]][npm-url] [![License][npm-license]][license-url]
+# API Problem [![version][npm-version]][npm-url] [![License][license-image]][license-url]
 
 > [HTTP Problem](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem) Utility
 
@@ -13,28 +13,6 @@
 
 ```bash
 npm install --only=production --save api-problem
-```
-
-## Usage
-
-I recommend using an optimized build matching your Node.js environment version, otherwise, the standard `require` would work just fine with any version of Node `>= v4.0` .
-
-```js
-/*
- * Node 7
- */
-const Problem = require('api-problem/lib/node7')
-
-/*
- * Node 6
- */
-const Problem = require('api-problem/lib/node6')
-
-/*
- * Node 4 (Default)
- * Note: additional ES2015 polyfills may be required
- */
-var Problem = require('api-problem')
 ```
 
 ## API
@@ -128,19 +106,34 @@ app.get('/', (req, res) => {
 app.use(Problem.Middleware)
 ```
 
-----
+## Targeted Builds
+
+an optimized build is made available for every major Node.js version marked as [Active LTS](https://github.com/nodejs/LTS).
+
+```js
+// Node 7
+const api-problem = require('api-problem/build/node7')
+
+// Node 6
+const api-problem = require('api-problem/build/node6')
+
+// Node 4 (Default)
+var api-problem = require('api-problem')
+```
+
+---
 > :copyright: [ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
 > License: [ISC][license-url] &nbsp;&middot;&nbsp;
 > Github: [@ahmadnassri](https://github.com/ahmadnassri) &nbsp;&middot;&nbsp;
 > Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
 [license-url]: http://choosealicense.com/licenses/isc/
+[license-image]: https://img.shields.io/github/license/ahmadnassri/api-problem.svg?style=flat-square
 
 [travis-url]: https://travis-ci.org/ahmadnassri/api-problem
 [travis-image]: https://img.shields.io/travis/ahmadnassri/api-problem.svg?style=flat-square
 
 [npm-url]: https://www.npmjs.com/package/api-problem
-[npm-license]: https://img.shields.io/npm/l/api-problem.svg?style=flat-square
 [npm-version]: https://img.shields.io/npm/v/api-problem.svg?style=flat-square
 [npm-downloads]: https://img.shields.io/npm/dm/api-problem.svg?style=flat-square
 
