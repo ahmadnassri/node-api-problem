@@ -103,28 +103,13 @@ app.get('/', (req, res) => {
   throw new Problem(403)
 })
 
-app.use(Problem.Middleware)
-```
-
-## Targeted Builds
-
-an optimized build is made available for every major Node.js version marked as [Active LTS](https://github.com/nodejs/LTS).
-
-```js
-// Node 7
-const api-problem = require('api-problem/build/node7')
-
-// Node 6
-const api-problem = require('api-problem/build/node6')
-
-// Node 4 (Default)
-var api-problem = require('api-problem')
+app.use(Middleware)
 ```
 
 ---
-> :copyright: [ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
-> License: [ISC][license-url] &nbsp;&middot;&nbsp;
-> Github: [@ahmadnassri](https://github.com/ahmadnassri) &nbsp;&middot;&nbsp;
+> :copyright: [ahmadnassri.com](https://www.ahmadnassri.com/)  · 
+> License: [ISC][license-url]  · 
+> Github: [@ahmadnassri](https://github.com/ahmadnassri)  · 
 > Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
 [license-url]: http://choosealicense.com/licenses/isc/

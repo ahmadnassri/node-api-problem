@@ -1,6 +1,8 @@
-import Problem from '../src'
-import { STATUS_CODES } from 'http'
-import { test } from 'tap'
+'use strict'
+
+const Problem = require('../lib')
+const STATUS_CODES = require('http').STATUS_CODES
+const tap = require('tap')
 
 const BASE_URI = ''
 const CONTENT_TYPE = 'application/problem+json'
@@ -9,7 +11,7 @@ const ERR_STATUS = '"status" must be a valid HTTP Error Status Code ([RFC7231], 
 const ERR_TITLE = 'missing "title". a short, human-readable summary of the problem type'
 const IANA_STATUS_CODES = 'http://www.iana.org/assignments/http-status-codes#'
 
-test('API Problem', (assert) => {
+tap.test('API Problem', assert => {
   assert.plan(18)
 
   assert.ok(new Problem(404) instanceof Problem, 'Problem prototype')
@@ -26,11 +28,11 @@ test('API Problem', (assert) => {
 
   Problem.BASE_URI = 'foo://bar/'
 
-  assert.equal(new Problem(404, 'foo', 'baz').type, Problem.BASE_URI + 'baz', `"BASE_URI" should changee to "${Problem.BASE_URI}"`)
+  assert.equal(new Problem(404, 'foo', 'baz').type, `${Problem.BASE_URI}baz`, `"BASE_URI" should changee to "${Problem.BASE_URI}"`)
 
   Problem.DEFAULT_TYPE = 'baz'
 
-  assert.equal(new Problem(404).type, Problem.BASE_URI + Problem.DEFAULT_TYPE, `"DEFAULT_TYPE" should change to "${Problem.DEFAULT_TYPE}"`)
+  assert.equal(new Problem(404).type, `${Problem.BASE_URI}${Problem.DEFAULT_TYPE}`, `"DEFAULT_TYPE" should change to "${Problem.DEFAULT_TYPE}"`)
 
   // reset
   Problem.BASE_URI = BASE_URI
@@ -51,7 +53,7 @@ test('API Problem', (assert) => {
   assert.equal(new Problem(404).toString(), `[404] Not Found (${IANA_STATUS_CODES}404)`, 'toString() yeilds is "[status] title (type)"')
 })
 
-test('HTTP Response', (assert) => {
+tap.test('HTTP Response', assert => {
   assert.plan(3)
 
   let problem = new Problem(404)
@@ -62,7 +64,7 @@ test('HTTP Response', (assert) => {
       assert.equal(headers['Content-Type'], CONTENT_TYPE, 'set correct Content-Type')
     },
 
-    end: (body) => {
+    end: body => {
       assert.equal(body, JSON.stringify(problem), 'serialized JSON response')
     }
   }

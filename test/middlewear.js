@@ -1,10 +1,12 @@
-import Middleware from '../src/middleware'
-import Problem from '../src/index'
-import { test } from 'tap'
+'use strict'
+
+const Middleware = require('../lib/middleware')
+const Problem = require('../lib/index')
+const tap = require('tap')
 
 const CONTENT_TYPE = 'application/problem+json'
 
-test('Express Middleware', (assert) => {
+tap.test('Express Middleware', assert => {
   assert.plan(5)
 
   let problem = new Problem(404)
