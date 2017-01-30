@@ -9,7 +9,7 @@
     "url": "https://github.com/ahmadnassri/api-problem.git"
   },
   "license": "ISC",
-  "main": "build/node4/index.js",
+  "main": "lib/index.js",
   "keywords": [
     "api",
     "http",
