@@ -7,9 +7,9 @@ collectors:
   - type: js-npm
     versions: "Y.Y.Y"
     settings:
-      github_labels: "dependencies"
+      github_labels: [dependencies]
   # create issues for new major versions
   - type: repo-issue
     versions: "Y.0.0"
     settings:
-      github_labels: "dependencies"
+      github_labels: [dependencies]
