@@ -2,8 +2,6 @@ collectors:
 
 - type: js-npm
   path: /
-  settings:
-    node_env: development
   actors:
   - type: js-npm
     versions: "Y.Y.Y"
