@@ -5,7 +5,11 @@ collectors:
   actors:
   # pull requests for updates to our major version
   - type: js-npm
-    versions: "L.Y.Y"
+    versions: "Y.Y.Y"
+    settings:
+      github_labels: "dependencies"
   # create issues for new major versions
   - type: repo-issue
     versions: "Y.0.0"
+    settings:
+      github_labels: "dependencies"
