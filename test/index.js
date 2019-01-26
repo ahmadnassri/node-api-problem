@@ -24,7 +24,7 @@ tap.test('API Problem', assert => {
   assert.equal(new Problem(402).title, STATUS_CODES[402], '"title" SHOULD be the same as the recommended HTTP status phrase for "status"')
   assert.equal(new Problem(402).type, IANA_STATUS_CODES + 402, '"type" should use IANA_STATUS_CODES when using standard "STATUS_CODES" and no "type" provided')
 
-  assert.equal(new Problem(444, 'foo').type, DEFAULT_TYPE, `default "type" should be ${DEFAULT_TYPE}`)
+  assert.equal(new Problem(444, 'foo').type, IANA_STATUS_CODES + 444, `default "type" should be an IANA_STATUS_CODE link`)
 
   Problem.BASE_URI = 'foo://bar/'
 
@@ -43,7 +43,7 @@ tap.test('API Problem', assert => {
   assert.equal(new Problem(404, 'foo', 'foo://bar/').type, 'foo://bar/', 'custom "type" ')
 
   assert.deepEqual(new Problem(404, { foo: 'bar' }), { status: '404', title: STATUS_CODES[404], type: IANA_STATUS_CODES + 404, foo: 'bar' }, 'members immediatly after "status"')
-  assert.deepEqual(new Problem(404, 'foo', { foo: 'bar' }), { status: '404', title: 'foo', type: DEFAULT_TYPE, foo: 'bar' }, 'members immediatly after "title"')
+  assert.deepEqual(new Problem(404, 'foo', { foo: 'bar' }), { status: '404', title: 'foo', type: IANA_STATUS_CODES + 404, foo: 'bar' }, 'members immediatly after "title"')
   assert.deepEqual(new Problem(404, 'foo', 'foo://bar/', { foo: 'bar' }), { status: '404', title: 'foo', type: 'foo://bar/', foo: 'bar' }, 'members immediatly after "type"')
 
   Problem.BASE_URI = 'foo://bar/'
