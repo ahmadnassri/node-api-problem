@@ -1,5 +1,3 @@
-'use strict'
-
 const Middleware = require('../lib/middleware')
 const Problem = require('../lib/index')
 const tap = require('tap')

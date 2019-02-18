@@ -26,12 +26,12 @@ import Problem from 'api-problem'
 
 // HTTP defaults
 new Problem(404)
-//=> { status: '404', title: 'Not Found', type: 'http://www.iana.org/assignments/http-status-codes#404' }
+//=> { status: '404', title: 'Not Found', type: 'https://httpstatuses.com/404' }
 
 
 // override defaults
 new Problem(404, 'Oops! Page Not Found')
-//=> { status: '404', title: 'Oops! Page Not Found', type: 'http://www.iana.org/assignments/http-status-codes#404' }
+//=> { status: '404', title: 'Oops! Page Not Found', type: 'https://httpstatuses.com/404' }
 
 
 // custom values
@@ -57,7 +57,7 @@ new Problem(403, {
   date: '2016-01-15T06:47:01.175Z',
   account_id: '12345'
 })
-//=> { status: '403', title: 'Forbidden', type: 'http://www.iana.org/assignments/http-status-codes#404', detail: 'Account suspended', instance: '/account/12345', account_id: 12345, 'date: 2016-01-15T06:47:01.175Z' }
+//=> { status: '403', title: 'Forbidden', type: 'https://httpstatuses.com/404', detail: 'Account suspended', instance: '/account/12345', account_id: 12345, 'date: 2016-01-15T06:47:01.175Z' }
 
 ```
 
