@@ -10,7 +10,7 @@ const ERR_TITLE = 'missing "title". a short, human-readable summary of the probl
 const STATUS_CODES_WEB = 'https://httpstatuses.com/'
 
 tap.test('API Problem', assert => {
-  assert.plan(18)
+  assert.plan(19)
 
   assert.ok(new Problem(404) instanceof Problem, 'Problem prototype')
 
@@ -49,6 +49,8 @@ tap.test('API Problem', assert => {
   assert.equal(new Problem(404, 'foo', 'baz', { instance: 'baz' }).instance, 'foo://bar/baz', '"instance" inherits "BASE_URI"')
 
   assert.equal(new Problem(404).toString(), `[404] Not Found (${STATUS_CODES_WEB}404)`, 'toString() yeilds is "[status] title (type)"')
+
+  assert.equal(new Problem(404, 'foo', 'bar').message, new Problem(404, 'foo', 'bar').toString(), 'with status, title, and type: error class message matches toString() output')
 })
 
 tap.test('HTTP Response', assert => {
