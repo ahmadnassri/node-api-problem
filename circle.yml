@@ -5,10 +5,6 @@ executors:
     docker:
       - image: ahmadnassri/build-essential
 
-  node-6:
-    docker:
-      - image: node:6-slim
-
   node-8:
     docker:
       - image: node:8-slim
@@ -49,12 +45,6 @@ jobs:
       - attach
       - run: npm run lint
 
-  test-node-6:
-    executor: node-6
-    steps:
-      - attach
-      - run: npm run test
-
   test-node-8:
     executor: node-8
     steps:
@@ -82,9 +72,6 @@ workflows:
       - lint:
           requires: [ build ]
 
-      - test-node-6:
-          requires: [ build ]
-
       - test-node-8:
           requires: [ build ]
 
@@ -93,7 +80,7 @@ workflows:
 
       - release:
           context: semantic-release
-          requires: [ build, lint, test-node-6, test-node-8, test-node-10 ]
+          requires: [ build, lint, test-node-8, test-node-10 ]
           filters:
             branches:
               only: master
