@@ -40,9 +40,9 @@ tap.test('API Problem', assert => {
   assert.equal(new Problem(452, 'foo').status, '452', 'custom "status"')
   assert.equal(new Problem(404, 'foo', 'foo://bar/').type, 'foo://bar/', 'custom "type" ')
 
-  assert.deepEqual(new Problem(404, { foo: 'bar' }), { status: '404', title: STATUS_CODES[404], type: STATUS_CODES_WEB + 404, foo: 'bar' }, 'members immediatly after "status"')
-  assert.deepEqual(new Problem(404, 'foo', { foo: 'bar' }), { status: '404', title: 'foo', type: STATUS_CODES_WEB + 404, foo: 'bar' }, 'members immediatly after "title"')
-  assert.deepEqual(new Problem(404, 'foo', 'foo://bar/', { foo: 'bar' }), { status: '404', title: 'foo', type: 'foo://bar/', foo: 'bar' }, 'members immediatly after "type"')
+  assert.equal(new Problem(404, { foo: 'bar' }).foo, 'bar', 'members immediately after "status"')
+  assert.equal(new Problem(404, 'foo', { foo: 'bar' }).foo, 'bar', 'members immediately after "title"')
+  assert.equal(new Problem(404, 'foo', 'foo://bar/', { foo: 'bar' }).foo, 'bar', 'members immediately after "type"')
 
   Problem.BASE_URI = 'foo://bar/'
 
