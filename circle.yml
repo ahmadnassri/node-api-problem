@@ -1,7 +1,7 @@
 version: 2.1
 
 executors:
-  builder:
+  build-step:
     docker:
       - image: ahmadnassri/build-essential
 
@@ -33,14 +33,14 @@ commands:
 
 jobs:
   build:
-    executor: builder
+    executor: build-step
     steps:
       - checkout
       - install
       - persist
 
   lint:
-    executor: builder
+    executor: build-step
     steps:
       - attach
       - run: npm run lint
@@ -58,7 +58,7 @@ jobs:
       - run: npm run test
 
   release:
-    executor: builder
+    executor: build-step
     steps:
       - attach
       - run: npx semantic-release
