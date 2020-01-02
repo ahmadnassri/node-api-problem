@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "keywords": [
     "api",
     "http",
@@ -31,9 +32,16 @@
     "lint:md": "npx remark-cli --quiet --frail .",
     "lint": "npx npm-run-all -p lint:*",
     "open:coverage": "opener coverage/lcov-report/index.html",
-    "test": "tap test --100 --coverage-report=lcov --no-browser"
+    "test": "tap test --100 --coverage-report=lcov --no-browser && npm run ts-test",
+    "ts-check": "tsc --noEmit ./lib/index.d.ts",
+    "ts-test": "npm run ts-test:setup && dtslint --localTs node_modules/typescript/lib types && npm run ts-test:clean",
+    "ts-test:setup": "node ./types/link.js",
+    "ts-test:clean": "node ./types/link.js --clean"
   },
   "devDependencies": {
-    "tap": "^14.6.1"
-  }
+    "dtslint": "^2.0.3",
+    "tap": "^14.10.5",
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {}
 }

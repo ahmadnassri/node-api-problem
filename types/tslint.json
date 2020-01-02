@@ -1,0 +1,8 @@
+{
+  "extends": "dtslint/dtslint.json",
+  "rules": {
+    "semicolon": false,
+    "strict-export-declare-modifiers": false,
+    "interface-over-type-literal": false
+  }
+}
