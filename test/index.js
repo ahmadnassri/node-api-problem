@@ -22,7 +22,7 @@ tap.test('API Problem', assert => {
   assert.equal(new Problem(402).title, STATUS_CODES[402], '"title" SHOULD be the same as the recommended HTTP status phrase for "status"')
   assert.equal(new Problem(402).type, STATUS_CODES_WEB + 402, '"type" should use STATUS_CODES_WEB when using standard "STATUS_CODES" and no "type" provided')
 
-  assert.equal(new Problem(444, 'foo').type, STATUS_CODES_WEB + 444, `default "type" should be an IANA_STATUS_CODE link`)
+  assert.equal(new Problem(444, 'foo').type, STATUS_CODES_WEB + 444, 'default "type" should be an IANA_STATUS_CODE link')
 
   Problem.BASE_URI = 'foo://bar/'
 
@@ -66,9 +66,9 @@ tap.test('Object conversion', assert => {
 tap.test('HTTP Response', assert => {
   assert.plan(3)
 
-  let problem = new Problem(404)
+  const problem = new Problem(404)
 
-  let response = {
+  const response = {
     writeHead: (status, headers) => {
       assert.equal(status, '404', 'set correct status code')
       assert.equal(headers['Content-Type'], CONTENT_TYPE, 'set correct Content-Type')
