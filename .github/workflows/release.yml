@@ -6,7 +6,20 @@ on:
       - master
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.0
+
+      # run checks
+      - run: npm audit --audit-level=moderate
+      - run: npx updated
+
   test:
+    needs: check
+
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -26,9 +39,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # run checks
-      - run: npm audit --audit-level=moderate
-      - run: npx updated
+      # run test
       - run: npm ci
       - run: npm run test
 
@@ -40,8 +51,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.0
-        with:
-          node-version: 14
 
       # release
       - run: npx semantic-release
