@@ -14,9 +14,13 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10, 12, 13, 14, 15]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+
       - uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -24,7 +28,7 @@ jobs:
 
       - uses: actions/setup-node@v2.1.0
         with:
-          node-version: 14
+          node-version: ${{ matrix.node-version }}
 
       # run audit for public packages
       - run: npm audit
