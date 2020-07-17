@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  check:
+  dependencies:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
       - run: npx updated
 
   test:
-    needs: check
+    needs: dependencies
 
     strategy:
       matrix:
