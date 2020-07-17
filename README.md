@@ -1,6 +1,26 @@
 # API Problem
 
-[![License][license-image]][license-url] [![version][npm-image]][npm-url] [![Build Status][circle-image]][circle-url]
+[![license][license-image]][license-url]
+[![version][npm-image]][npm-url]
+[![super linter][super-linter-image]][super-linter-url]
+[![test][test-image]][test-url]
+[![release][release-image]][release-url]
+
+[license-url]: LICENSE
+[license-image]: https://img.shields.io/github/license/ahmadnassri/node-api-problem.svg?logo=circleci
+
+[npm-url]: https://www.npmjs.com/package/api-problem
+[npm-image]: https://img.shields.io/npm/v/api-problem.svg?logo=npm
+
+[super-linter-url]: https://github.com/ahmadnassri/node-api-problem/actions?query=workflow%3Asuper-linter
+[super-linter-image]: https://github.com/ahmadnassri/node-api-problem/workflows/super-linter/badge.svg
+
+[test-url]: https://github.com/ahmadnassri/node-api-problem/actions?query=workflow%3Atest
+[test-image]: https://github.com/ahmadnassri/node-api-problem/workflows/test/badge.svg
+
+[release-url]: https://github.com/ahmadnassri/node-api-problem/actions?query=workflow%3Arelease
+[release-image]: https://github.com/ahmadnassri/node-api-problem/workflows/release/badge.svg
+
 
 > [RFC 7807 - Problem Details for HTTP APIs](https://tools.ietf.org/html/rfc7807) Utility
 
@@ -117,14 +137,6 @@ app.use(Middleware)
 > Author: [Ahmad Nassri](https://www.ahmadnassri.com) • 
 > Github: [@AhmadNassri](https://github.com/ahmadnassri) • 
 > Twitter: [@AhmadNassri](https://twitter.com/ahmadnassri)
-
-[license-url]: LICENSE
-
-[license-image]: https://img.shields.io/github/license/ahmadnassri/node-api-problem.svg?style=for-the-badge&logo=circleci
-
-[npm-url]: https://www.npmjs.com/package/api-problem
-
-[npm-image]: https://img.shields.io/npm/v/api-problem.svg?style=for-the-badge&logo=npm
 
 [spec-3]: https://tools.ietf.org/html/rfc7807#section-3
 
