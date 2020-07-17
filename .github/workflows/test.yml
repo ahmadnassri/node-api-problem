@@ -1,0 +1,35 @@
+name: test-client
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+    paths:
+      - 'client/**'
+
+env:
+  NODE_ENV: test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: client-${{ hashFiles('**/package-lock.json') }}
+
+      - uses: actions/setup-node@v2.1.0
+        with:
+          node-version: 14
+
+      # run audit for public packages
+      - run: npm audit
+
+      # run checks
+      - run: npx updated
+      - run: npm ci
+      - run: npm run test

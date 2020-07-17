@@ -25,15 +25,9 @@
     "url": "https://github.com/ahmadnassri/node-api-problem/issues"
   },
   "scripts": {
-    "lint:deps": "npx updated",
-    "lint:ec": "npx editorconfig-checker .",
-    "lint:js": "npx eslint .",
-    "lint:md": "npx remark-cli --quiet --frail .",
-    "lint": "npx npm-run-all -p lint:*",
-    "open:coverage": "opener coverage/lcov-report/index.html",
     "test": "tap test --100 --coverage-report=lcov --no-browser"
   },
   "devDependencies": {
-    "tap": "^14.6.1"
+    "tap": "^14.10.7"
   }
 }
