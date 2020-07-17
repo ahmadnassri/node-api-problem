@@ -53,6 +53,16 @@ tap.test('API Problem', assert => {
   assert.equal(new Problem(404, 'foo', 'bar').message, new Problem(404, 'foo', 'bar').toString(), 'with status, title, and type: error class message matches toString() output')
 })
 
+tap.test('Object conversion', assert => {
+  assert.plan(1)
+
+  const problem = new Problem(400, 'title', { foo: 'bar' })
+
+  const obj = problem.toObject()
+
+  assert.deepEqual(obj, { type: 'https://httpstatuses.com/400', title: 'title', status: 400, foo: 'bar' })
+})
+
 tap.test('HTTP Response', assert => {
   assert.plan(3)
 
