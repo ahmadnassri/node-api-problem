@@ -37,7 +37,7 @@ tap.test('API Problem', assert => {
   Problem.DEFAULT_TYPE = DEFAULT_TYPE
 
   assert.equal(new Problem(404, 'foo').title, 'foo', 'custom "title"')
-  assert.equal(new Problem(452, 'foo').status, '452', 'custom "status"')
+  assert.equal(new Problem(452, 'foo').status, 452, 'custom "status"')
   assert.equal(new Problem(404, 'foo', 'foo://bar/').type, 'foo://bar/', 'custom "type" ')
 
   assert.equal(new Problem(404, { foo: 'bar' }).foo, 'bar', 'members immediately after "status"')
@@ -70,7 +70,7 @@ tap.test('HTTP Response', assert => {
 
   const response = {
     writeHead: (status, headers) => {
-      assert.equal(status, '404', 'set correct status code')
+      assert.equal(status, 404, 'set correct status code')
       assert.equal(headers['Content-Type'], CONTENT_TYPE, 'set correct Content-Type')
     },
 

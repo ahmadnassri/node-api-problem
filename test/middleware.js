@@ -12,7 +12,7 @@ tap.test('Express Middleware', assert => {
   const req = {}
   let res = {
     writeHead (status, headers) {
-      assert.equal(status, '404', 'set correct status code')
+      assert.equal(status, 404, 'set correct status code')
       assert.same(headers, { 'Content-Type': CONTENT_TYPE }, 'set correct HTTP headers')
     },
 
