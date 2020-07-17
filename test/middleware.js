@@ -7,9 +7,9 @@ const CONTENT_TYPE = 'application/problem+json'
 tap.test('Express Middleware', assert => {
   assert.plan(5)
 
-  let problem = new Problem(404)
+  const problem = new Problem(404)
 
-  let req = {}
+  const req = {}
   let res = {
     writeHead (status, headers) {
       assert.equal(status, '404', 'set correct status code')
