@@ -85,7 +85,6 @@ new Problem(403, {
 
 returns an object containing all the properties including: _(status, title, type, members)_
 
-
 ```js
 const prob = new Problem(403, 'You do not have enough credit', 'https://example.com/probs/out-of-credit', { user_id: 'x123' })
 
