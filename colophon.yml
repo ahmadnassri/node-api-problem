@@ -1,0 +1,8 @@
+version: 2.0
+
+id: api-problem
+
+about:
+  title: API Problem
+  description: RFC 7807 - Problem Details for HTTP APIs
+  repository: ahmadnassri/node-api-problem

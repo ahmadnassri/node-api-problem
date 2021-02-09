@@ -101,15 +101,14 @@ MD032: true
 
 # inline HTML
 MD033:
-  allowed_elements: []
+  allowed_elements: [details, summary]
 
 # Bare URL used
 MD034: true
 
 # Horizontal rule style
 MD035:
-  style: "---"
-
+  style: "----"
 
 # Emphasis used instead of a heading
 MD036:

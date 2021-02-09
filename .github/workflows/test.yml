@@ -1,44 +1,59 @@
 name: test
 
-on:
-  push:
-    branches-ignore:
-      - master
+on: [ push, pull_request ]
+
+env:
+  NODE_ENV: test
 
 jobs:
-  dependencies:
+  deduplicate:
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    # run on external PRs, but on internal PRs as they'll be run by the push to the branch.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+
+    steps:
+      - run: echo ::warning ::skipped duplicate run
+
+  audit:
+    timeout-minutes: 5
+
+    needs: deduplicate
+
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.4
-
-      # run checks
-      - run: npm audit --audit-level=moderate
-      - run: npx updated
+      - uses: actions/checkout@v2
+      - run: npm audit --audit-level=critical
 
   test:
-    needs: dependencies
+    timeout-minutes: 5
+
+    needs: audit
 
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [10, 12, 13, 14]
+        node-version: [12, 14, 15]
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/cache@v2.1.4
-        with:
-          path: ~/.npm
-          key: client-${{ hashFiles('**/package-lock.json') }}
-
       - uses: actions/setup-node@v2.1.4
         with:
           node-version: ${{ matrix.node-version }}
 
-      # run test
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - uses: actions/cache@v2.1.4
+        with:
+          path: ~/.npm
+          key: ${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+
       - run: npm ci
-      - run: npm run test
+      - run: npm run test:ci

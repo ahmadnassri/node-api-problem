@@ -1,14 +1,21 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: gitsubmodule
     open-pull-requests-limit: 10
-    directory: "/"
+    directory: /
+    commit-message:
+      prefix: build
+      prefix-development: chore
+      include: scope
     schedule:
-      interval: "daily"
+      interval: daily
 
-  - package-ecosystem: "npm"
+  - package-ecosystem: npm
     open-pull-requests-limit: 10
-    directory: "/"
+    directory: /
+    commit-message:
+      prefix: build
+      prefix-development: chore
+      include: scope
     schedule:
-      interval: "daily"
-
+      interval: daily
