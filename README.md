@@ -34,16 +34,13 @@ import Problem from 'api-problem'
 new Problem(404)
 //=> { status: '404', title: 'Not Found', type: 'https://httpstatuses.com/404' }
 
-
 // override defaults
 new Problem(404, 'Oops! Page Not Found')
 //=> { status: '404', title: 'Oops! Page Not Found', type: 'https://httpstatuses.com/404' }
 
-
 // custom values
 new Problem(403, 'You do not have enough credit', 'https://example.com/probs/out-of-credit')
 //=> { status: '403', title: 'You do not have enough credit', type: 'https://example.com/probs/out-of-credit' }
-
 
 // additional details
 new Problem(403, 'You do not have enough credit', 'https://example.com/probs/out-of-credit', {
@@ -55,7 +52,6 @@ new Problem(403, 'You do not have enough credit', 'https://example.com/probs/out
 
 //=> { status: '403', title: 'You do not have enough credit', type: 'https://example.com/probs/out-of-credit', detail: 'Your current balance is 30, but that costs 50.', instance: '/account/12345/msgs/abc', balance: 30, accounts: ['/account/12345', '/account/67890'] }
 
-
 // HTTP defaults + Details
 new Problem(403, {
   detail: 'Account suspended',
@@ -63,10 +59,11 @@ new Problem(403, {
   date: '2016-01-15T06:47:01.175Z',
   account_id: '12345'
 })
+
 //=> { status: '403', title: 'Forbidden', type: 'https://httpstatuses.com/404', detail: 'Account suspended', instance: '/account/12345', account_id: 12345, 'date: 2016-01-15T06:47:01.175Z' }
 ```
 
-### Method : <object> `toObject()`
+### Method : `<object>` `toObject()`
 
 returns an object containing all the properties including: *(status, title, type, members)*
 
@@ -76,7 +73,7 @@ const prob = new Problem(403, 'You do not have enough credit', 'https://example.
 prob.toObject() //=> { status: 403, title: 'You do not have enough credit', type: 'https://example.com/probs/out-of-credit', user_id: 'x123' }
 ```
 
-### Method : <string> `toString()`
+### Method : `<string>` `toString()`
 
 returns a simplified, human-readable string representation
 
@@ -86,7 +83,7 @@ const prob = new Problem(403, 'You do not have enough credit', 'https://example.
 prob.toString() //=> [403] You do not have enough credit ('https://example.com/probs/out-of-credit')
 ```
 
-### Method : <void> `send(response)`
+### Method : `<void>` `send(response)`
 
 uses [`response.writeHead`](https://nodejs.org/docs/latest/api/http.html#http_response_writehead_statuscode_statusmessage_headers) and [`response.end`](https://nodejs.org/docs/latest/api/http.html#http_response_end_data_encoding_callback) to send an appropriate error respnse message with the `Content-Type` response header to \[`application/problem+json`\]\[spec-3\]
 
