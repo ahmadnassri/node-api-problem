@@ -102,3 +102,7 @@ app.get('/', (req, res) => {
 
 app.use(Middleware)
 ```
+
+[spec-3]: https://tools.ietf.org/html/rfc7807#section-3
+[spec-3.1]: https://tools.ietf.org/html/rfc7807#section-3.1
+[spec-3.2]: https://tools.ietf.org/html/rfc7807#section-3.2
