@@ -60,7 +60,7 @@ tap.test('Object conversion', assert => {
 
   const obj = problem.toObject()
 
-  assert.deepEqual(obj, { type: 'https://httpstatuses.com/400', title: 'title', status: 400, foo: 'bar' })
+  assert.same(obj, { type: 'https://httpstatuses.com/400', title: 'title', status: 400, foo: 'bar' })
 })
 
 tap.test('HTTP Response', assert => {
