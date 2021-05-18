@@ -1,0 +1,112 @@
+# ------------------------------------------------------------- #
+# Note: this file is automatically managed in template-template #
+# ------------------------------------------------------------- #
+
+on: pull_request
+
+name: pull_request
+
+jobs:
+  pr-screen:
+    runs-on: ubuntu-20.04
+
+    # only run for external PRs
+    if: github.event.pull_request.head.repo.full_name != github.repository
+
+    steps:
+      - run: echo ::debug::pr screen complete
+        working-directory: ${{ github.workspace }}
+
+  commit-lint:
+    needs: pr-screen
+
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ahmadnassri/action-commit-lint@v1
+        with:
+          config: .github/linters/.commit-lint.yml
+
+  super-linter:
+    needs: pr-screen
+
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: github/super-linter@v3.15.5
+        env:
+          LOG_LEVEL: ERROR
+          VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_EXCLUDE: '/github/workspace/README.md|test/fixtures/*'
+          GITHUB_TOKEN: ${{ github.token }}
+
+  npm-audit:
+    needs: pr-screen
+
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2.1.5
+
+      - run: npm audit --audit-level=critical
+
+  test-strategy:
+    needs:
+      - commit-lint
+      - super-linter
+      - npm-audit
+
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.parse.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - id: parse
+        run: echo "::set-output name=matrix::$(jq -c . < .github/matrix.json)"
+
+  test-run:
+    needs: test-strategy
+
+    timeout-minutes: 5
+
+    name: ${{ matrix.name || format('node v{0} @ {1}', matrix.node-version, matrix.os) || 'test-step' }}
+
+    strategy:
+      matrix: ${{ fromJSON(needs.test-strategy.outputs.matrix) }}
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - uses: actions/cache@v2.1.4
+        with:
+          path: ~/.npm
+          key: ${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+
+      - run: npm ci
+      - run: npm run test:ci
