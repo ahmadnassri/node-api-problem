@@ -7,29 +7,47 @@ on: pull_request_target
 name: pull_request_target
 
 jobs:
-  auto-merge:
-    # only run for dependabot
-    if: github.actor == 'dependabot[bot]'
+  metadata:
+    runs-on: ubuntu-latest
 
+    outputs:
+      repository: ${{ steps.metadata.outputs.repository }}
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: ahmadnassri/action-metadata@v1
+        id: metadata
+
+  auto-merge:
     timeout-minutes: 5
 
     runs-on: ubuntu-latest
 
+    # only run for dependabot PRs
+    if: ${{ github.actor == 'dependabot[bot]' }}
+
     steps:
-      - uses: actions/checkout@v2
       - uses: ahmadnassri/action-dependabot-auto-merge@v2.4
         with:
           github-token: ${{ secrets.GH_TOKEN }}
 
   template-sync:
+    needs: metadata
+
     timeout-minutes: 20
 
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+    # only run for templates
+    if: ${{ fromJSON(needs.metadata.outputs.repository).is_template }}
 
-      - uses: ahmadnassri/action-template-repository-sync@v1
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: ahmadnassri/action-workflow-queue@v1.1
+      - uses: ahmadnassri/action-template-repository-sync@v1.6.0
+      - uses: ahmadnassri/action-workflow-queue@v1.1
         with:
           github-token: ${{ secrets.GH_TOKEN }}
-          dry-run: true
