@@ -16,7 +16,7 @@ x-node: &node
 services:
   # ---- super-linter ---- #
   lint:
-    image: github/super-linter:v3
+    image: github/super-linter:slim-v4
     volumes:
       - ./:/github/workspace
     environment:
@@ -34,6 +34,7 @@ services:
       - ./:/data
     command: --defaults=.pandoc.yml
 
+  # ---- test runner ---- #
   test:
     <<: *node
     image: node:alpine
