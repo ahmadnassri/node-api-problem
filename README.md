@@ -85,7 +85,7 @@ prob.toString() //=> [403] You do not have enough credit ('https://example.com/p
 
 ### Method : `<void>` `send(response)`
 
-uses [`response.writeHead`][] and [`response.end`][] to send an appropriate error respnse message with the `Content-Type` response header to [`application/problem+json`][]
+uses [`response.writeHead`][] and [`response.end`][] to send an appropriate error response message with the `Content-Type` response header to [`application/problem+json`][]
 
 ``` js
 import http from 'http'
