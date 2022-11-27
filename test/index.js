@@ -7,7 +7,7 @@ const CONTENT_TYPE = 'application/problem+json'
 const DEFAULT_TYPE = 'about:blank'
 const ERR_STATUS = '"status" must be a valid HTTP Error Status Code ([RFC7231], Section 6)'
 const ERR_TITLE = 'missing "title". a short, human-readable summary of the problem type'
-const STATUS_CODES_WEB = 'https://httpstatuses.com/'
+const STATUS_CODES_WEB = 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/'
 
 tap.test('API Problem', assert => {
   assert.plan(19)
@@ -60,7 +60,7 @@ tap.test('Object conversion', assert => {
 
   const obj = problem.toObject()
 
-  assert.same(obj, { type: 'https://httpstatuses.com/400', title: 'title', status: 400, foo: 'bar' })
+  assert.same(obj, { type: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400', title: 'title', status: 400, foo: 'bar' })
 })
 
 tap.test('HTTP Response', assert => {
