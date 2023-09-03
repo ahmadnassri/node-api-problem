@@ -1,0 +1,6 @@
+{
+  "include": [
+    { "id": "NPM", "registry": "https://registry.npmjs.org", "name": "api-problem" },
+    { "id": "GITHUB", "registry": "https://npm.pkg.github.com", "name": "@ahmadnassri/api-problem" }
+  ]
+}
